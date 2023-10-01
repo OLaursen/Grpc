@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option go_package = "github.com/OLaursen/Grpc/proto";
+
+package proto;
+
+service exercise1{
+
+    //Student service endpoints: 
+    rpc Student(studentID) returns (studentInformation) {}
+
+    // rpc getEnrollments(student) returns (stream enrollments) {}
+    // rpc getWorkload(student) returns (workload) {}
+
+    //Teacher service endpoints:
+    rpc Teacher(teacherID) returns (teacherInformation) {}
+
+    //Course service endpoints:
+    rpc Course(courseID) returns ( courseInformation) {}
+}
+
+//When service endpoints are created, we need to construct the messages that can be delivered between the client and the server. 
+
+//Related to students endpoint
+message studentID{
+    int32 studentID = 1;
+}
+message studentInformation{
+    studentID studentID = 1;
+    string enrollments = 2;
+    string workload = 3;
+
+}
+
+//Related to teachers endpoint
+
+message teacherID{
+    int32 teacherID = 1;
+}
+
+message teacherInformation{
+    teacherID teacherID = 1;
+    courseID courseID = 2;
+    int32 studentPopularityScore = 3; 
+}
+
+//Related to courses endpoint
+message courseID{
+    int32 courseID = 1;
+}
+message courseInformation{
+    courseID courseID = 1;
+    teacherID teacherID = 2;
+    string courseName = 3;
+}
